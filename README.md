@@ -18,3 +18,27 @@ Free Code Camp Voting App
 * **User Story:** As an unauthenticated or authenticated user, I can see the results of polls in chart form. (This could be implemented using Chart.js or Google Charts.)
 
 * **User Story:** As an authenticated user, if I don't like the options on a poll, I can create a new option.
+
+## Views
+
+### Unauthorized
+
+* **Login** / Home Page
+* **Register**
+* **Poll list**
+* **Poll Detail**
+    * Vote Any Poll
+
+### Authorized
+
+* **My Polls** / Home Page
+* **Poll list**
+* **Poll Detail**
+    * Create Own Poll
+    * Update Own Poll
+    * Delete Own Poll
+    * Vote Any Poll
+    * Create Option Any Poll
+* **User Profile**
+    * Update Own Profile
+    * Delete Own User
