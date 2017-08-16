@@ -24,7 +24,11 @@ Free Code Camp Voting App
 ### Unauthorized
 
 * **Login** / Home Page
+    * Form
+    * Github
+    * Twitter
 * **Register**
+    * Create User
 * **Poll list**
 * **Poll Detail**
     * Vote Any Poll
