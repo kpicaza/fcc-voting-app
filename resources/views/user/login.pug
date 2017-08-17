@@ -1,0 +1,13 @@
+extends ../layout.pug
+
+block content
+    div(class="card offset-md-3 col-md-6 offset-lg-4 col-lg-4")
+
+        div(class="card-block")
+            form(action="/login", method="POST")
+                div(class="form-group")
+                    input(type="text", class="form-control form-control-lg", name="username", id="username" placeholder="Username" required)
+                div(class="form-group")
+                    input(type="password", class="form-control form-control-lg", name="password", id="password" placeholder="Password" required)
+                button(type="submit" class="btn btn-danger btn-lg btn-block") Sign in
+                a(href="/register", class="btn btn-primary btn-lg btn-block") Create account

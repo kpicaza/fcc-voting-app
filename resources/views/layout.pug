@@ -1,0 +1,20 @@
+- var siteName = 'Fcc Voting App';
+
+html
+    head
+        title My Site - #{siteName}
+        link(rel="stylesheet" href="css/bootstrap.min.css")
+    body
+        div(class="jumbotron bg-danger text-white")
+            h1= siteName
+        div(class="container")
+            block content
+        block foot
+            div(class="container")
+                #footer
+                    p some footer content
+
+        block scripts
+            script(type="text/javascript" src="js/jquery.min.js")
+            script(type="text/javascript" src="js/tether.min.js")
+            script(type="text/javascript" src="js/bootstrap.min.js")
