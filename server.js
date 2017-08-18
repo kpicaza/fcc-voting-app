@@ -4,6 +4,7 @@ var express = require('express');
 var routes = require('./routes/index.js');
 var passport = require('passport');
 var bodyParser = require('body-parser');
+var expressValidator = require('express-validator');
 var session = require('express-session');
 var path = require('path');
 
@@ -12,7 +13,12 @@ require('dotenv').load();
 require('./config/passport')(passport);
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use('/js/user', express.static(path.join(__dirname, "src/user/infrastructure/client")));
+app.use('/js/common', express.static(path.join(__dirname, "src/util")));
+
+
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(expressValidator({}));
 app.use(require('cookie-parser')());
 app.use(session({
 	secret: 'secretClementine',

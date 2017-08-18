@@ -7,7 +7,6 @@ var container = require('./container');
 module.exports = function (app, passport) {
 
   function isLoggedIn(req, res, next) {
-    console.log('isAuth', req.isAuthenticated());
     if (req.isAuthenticated()) {
       return next();
     } else {
@@ -23,16 +22,18 @@ module.exports = function (app, passport) {
     }
   }
 
-  app.get('/login', onlyAnon, container.LoginForm());
+  app.route('/login')
+    .get(onlyAnon, container.LoginForm())
+    .post(onlyAnon, passport.authenticate('local', {
+      failureRedirect: '/login'
+    }), container.Login());
 
-  app.post('/login', onlyAnon, passport.authenticate('local', {failureRedirect: '/login'}), container.Login());
+  app.route('/register')
+    .get(onlyAnon, container.RegisterForm())
+    .post(onlyAnon, container.RegisterValidator(), container.CreateAnUser());
 
-  app.get('/register', onlyAnon, container.RegisterForm());
-
-  app.post('/register', onlyAnon, container.CreateAnUser());
-
-  app.get('/logout',
-    function (req, res) {
+  app.route('/logout')
+    .get(function (req, res) {
       req.logout();
       res.redirect('/login');
     });
@@ -40,9 +41,18 @@ module.exports = function (app, passport) {
   app.route('/').get(
     isLoggedIn,
     function (req, res) {
-      var view = pug.compileFile(path.resolve('resources/views/poll/list.pug'));
+      var view = pug.compileFile(path.resolve('views/poll/list.pug'));
 
       res.send(view());
     });
+
+  app.route('/api/users/usernames')
+    .post(container.CheckUsername());
+
+  app.route('/api/users/emails')
+    .post(container.CheckEmail());
+
+  app.route('/api/users/passwords')
+    .post(container.CheckPassword());
 
 };

@@ -3,17 +3,16 @@
 var Promise = require('rsvp').Promise;
 var bcrypt = require('bcrypt');
 var User = require('./user');
+var UserWasAdded = require('../event/user-was-added');
 var saltRounds = 10;
 
-function Repository(store) {
+function Repository(store, emitter) {
 
   var factory = function (data) {
     return new User(data.id, data.username, data.email, data.password);
   };
 
   var makeFromResult = function (data) {
-    data[0].id = data[0]._id;
-
     return factory(data[0]);
   };
 
@@ -21,7 +20,13 @@ function Repository(store) {
 
     return bcrypt.hash(data.password, saltRounds).then(function(hash) {
       data.password = hash;
-      return store(factory(data), 'insert');
+      return store(factory(data), 'insert').then(function (user) {
+        emitter.emit('UserWasAdded', {
+          name: 'UserWasAdded',
+          data: new UserWasAdded(user),
+          occurredOn: new Date()
+        });
+      });
     });
 
   };
@@ -30,6 +35,18 @@ function Repository(store) {
     return new Promise(function (resolve, reject) {
       store(id, 'findById').then(function (data) {
         resolve(makeFromResult(data));
+      }).catch(function (e) {
+        reject(e);
+      });
+    });
+  };
+
+  this.byEmail = function (email) {
+    return new Promise(function (resolve, reject) {
+      store(email, 'findByEmail').then(function (data) {
+        resolve(makeFromResult(data));
+      }).catch(function (e) {
+        reject(e);
       });
     });
   };
@@ -38,6 +55,8 @@ function Repository(store) {
     return new Promise(function (resolve, reject) {
       store(username, 'findByUsername').then(function (data) {
         resolve(makeFromResult(data));
+      }).catch(function (e) {
+        reject(e);
       });
     });
   };

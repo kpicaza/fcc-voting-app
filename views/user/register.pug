@@ -1,18 +1,25 @@
-extends ../layout.pug
+extends ../layout
 
 block content
     div(class="card offset-md-3 col-md-6 offset-lg-4 col-lg-4")
 
         div(class="card-block")
-            form(action="/register", method="POST")
+
+            form(id="register-form" action="/register", method="POST")
                 div(class="form-group")
                     input(type="text", class="form-control form-control-lg", name="username", id="username" placeholder="Username" required)
+                    small(class="error form-control-feedback hidden") Invalid username given.
+
                 div(class="form-group")
                     input(type="email", class="form-control form-control-lg", name="email", id="email" placeholder="Email" required)
+                    small(class="error form-control-feedback hidden") Invalid email given.
+
                 div(class="form-group")
                     input(type="password", class="form-control form-control-lg", name="password", id="password" placeholder="Password" required)
                 div(class="form-group")
                     input(type="password", class="form-control form-control-lg", name="repeatPassword", id="repeatPassword" placeholder="Password" required)
-                button(type="submit" class="btn btn-danger btn-lg btn-block") Create account
+                button(id="register-button" disabled type="submit" class="btn btn-danger btn-lg btn-block") Create account
                 a(href="/login", class="btn btn-primary btn-lg btn-block") Sign in
 
+block append scripts
+    script(type="text/javascript" src="js/user/create-user.client.js")

@@ -52,7 +52,13 @@ function Store(db) {
 
   this.findById = function(id) {
     return find({
-      _id: ObjectId(id)
+      userId: id
+    });
+  };
+
+  this.findByEmail = function(email) {
+    return find({
+      email: email
     });
   };
 
@@ -65,6 +71,7 @@ function Store(db) {
   this.insert = function (user) {
     return new Promise(function (resolve, reject) {
       collection.insert({
+        userId: user.id(),
         username: user.username(),
         email: user.email(),
         password: user.password()
@@ -73,7 +80,7 @@ function Store(db) {
           reject(err);
         }
 
-        resolve(vm.findByUsername(data.username));
+        resolve(vm.findById(user.id()));
       });
     });
   };

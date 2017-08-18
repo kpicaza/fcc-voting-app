@@ -6,9 +6,23 @@ var pug = require('pug');
 function RegisterForm() {
   this.action = function (req, res) {
 
-    var view = pug.compileFile(path.resolve('resources/views/user/register.pug'));
+    var view = pug.compileFile(path.resolve('views/user/register.pug'));
 
-    res.send(view());
+    req.getValidationResult().then(function(result) {
+      if (true === result.isEmpty()) {
+        res.send(view());
+        return;
+      }
+
+      var foo = result.mapped();
+
+      console.log(foo);
+
+      res.send(view({
+        errors: foo
+      }));
+    });
+
   }
 }
 

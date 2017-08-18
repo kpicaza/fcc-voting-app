@@ -1,12 +1,10 @@
 'use strict';
 
 var LocalStrategy = require('passport-local').Strategy;
-
 var userRepository = require('../routes/container').UserRepository();
 
 module.exports = function (passport) {
 	passport.serializeUser(function (user, done) {
-    console.log('serialize', user.id());
 		done(null, user.id());
 	});
 
