@@ -6,6 +6,7 @@ var passport = require('passport');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var session = require('express-session');
+var flash = require('express-flash');
 var path = require('path');
 
 var app = express();
@@ -25,6 +26,7 @@ app.use(session({
   saveUninitialized: true,
 	resave: false
 }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 

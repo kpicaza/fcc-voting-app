@@ -2,8 +2,30 @@
 
 var LocalStrategy = require('passport-local').Strategy;
 var userRepository = require('../routes/container').UserRepository();
+var emitter = require('../routes/container').EventEmitter();
 
 module.exports = function (passport) {
+
+  var emitLoginFailedEvent = function () {
+    emitter.emit('LoginWasFailed', {
+      name: 'LoginWasFailed',
+      data: 'Invalid username or password.',
+      occurredOn: new Date()
+    });
+  };
+
+  var emitUserLoggedInEvent = function (user) {
+    emitter.emit('UserLoggedIn', {
+      name: 'UserLoggedIn',
+      data: {
+        id: user.id(),
+        username: user.username(),
+        email: user.email()
+      },
+      occurredOn: new Date()
+    });
+  };
+
 	passport.serializeUser(function (user, done) {
 		done(null, user.id());
 	});
@@ -21,11 +43,15 @@ module.exports = function (passport) {
 
         return user.verifyPassword(password).then(function (res) {
           if (!res) {
+            emitLoginFailedEvent();
             return done(null, false);
           }
+
+          emitUserLoggedInEvent(user);
           done(null, user);
         });
       }).catch(function(e) {
+        emitLoginFailedEvent();
         done(null, false);
 			});
     }

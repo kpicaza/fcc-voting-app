@@ -4,6 +4,12 @@ block content
     div(class="card offset-md-3 col-md-6 offset-lg-4 col-lg-4")
 
         div(class="card-block")
+            if 0 < error.length
+                div(class="alert alert-danger", role="alert")= error
+
+            if 0 < success.length
+                div(class="alert alert-success", role="alert")= success
+
             form(action="/login", method="POST")
                 div(class="form-group")
                     input(type="text", class="form-control form-control-lg", name="username", id="username" placeholder="Username" required)

@@ -25,7 +25,8 @@ module.exports = function (app, passport) {
   app.route('/login')
     .get(onlyAnon, container.LoginForm())
     .post(onlyAnon, passport.authenticate('local', {
-      failureRedirect: '/login'
+      failureRedirect: '/login',
+      failureFlash: 'Invalid username or password.'
     }), container.Login());
 
   app.route('/register')
