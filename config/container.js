@@ -8,9 +8,16 @@ var CheckUsername = require('../src/user/application/action/check-username');
 var CheckEmail = require('../src/user/application/action/check-email');
 var CheckPassword = require('../src/user/application/action/check-password');
 var CreateAnUser = require('../src/user/application/action/create-user-action');
+var PollForm = require('../src/poll/application/action/poll-form');
+var PollList = require('../src/poll/application/action/poll-list');
+var CheckPollName = require('../src/poll/application/action/check-name');
+var CheckPollOption = require('../src/poll/application/action/check-option');
+var CreatePoll = require('../src/poll/application/action/create-poll');
 var RegisterValidator = require('../src/user/application/middleware/register-validator');
 var UserRepository = require('../src/user/domain/model/repository');
-var mongoUserStore = require('../src/user/infrastructure/mongo-user-store');
+var PollRepository = require('../src/poll/domain/model/repository');
+var mongoUserStore = require('../src/user/infrastructure/db/mongo-user-store');
+var mongoPollStore = require('../src/poll/infrastructure/db/mongo-poll-store');
 
 var container = {
 
@@ -19,6 +26,8 @@ var container = {
 
     return emitter;
   },
+
+  // User Dependencies.
 
   Login: function () {
     var login = new Login();
@@ -76,6 +85,42 @@ var container = {
     );
 
     return createAnUser.action;
+  },
+
+  // Poll Dependencies.
+
+  PollRepository: function () {
+    return new PollRepository(mongoPollStore, this.EventEmitter());
+  },
+
+  PollList: function () {
+    var pollList = new PollList(this.PollRepository());
+
+    return pollList.action;
+  },
+
+  PollForm: function () {
+    var pollForm = new PollForm();
+
+    return pollForm.action;
+  },
+
+  CheckPollName: function () {
+    var checkPollName = new CheckPollName();
+
+    return checkPollName.action;
+  },
+
+  CheckPollOption: function () {
+    var checkPollOption = new CheckPollOption();
+
+    return checkPollOption.action;
+  },
+
+  CreatePoll: function () {
+    var createPoll= new CreatePoll(this.PollRepository());
+
+    return createPoll.action;
   }
 
 };

@@ -1,8 +1,8 @@
 'use strict';
 
-var apiUrl = appUrl + '/api/users/';
-
 (function () {
+
+  var apiUrl = appUrl + '/api/users/';
 
   var form = $('#register-form');
   var usernameInput = $('#username');

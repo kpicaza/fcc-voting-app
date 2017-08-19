@@ -1,7 +1,6 @@
 'use strict';
 
 var mongo = require('mongodb').MongoClient;
-var ObjectId = require('mongodb').ObjectID;
 var Promise = require('rsvp').Promise;
 
 module.exports = function (data, method) {

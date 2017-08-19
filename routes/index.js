@@ -1,8 +1,6 @@
 'use strict';
 
-var path = require('path');
-var pug = require('pug');
-var container = require('./container');
+var container = require('../config/container');
 
 module.exports = function (app, passport) {
 
@@ -22,6 +20,8 @@ module.exports = function (app, passport) {
     }
   }
 
+  // user routes
+
   app.route('/login')
     .get(onlyAnon, container.LoginForm())
     .post(onlyAnon, passport.authenticate('local', {
@@ -39,13 +39,13 @@ module.exports = function (app, passport) {
       res.redirect('/login');
     });
 
-  app.route('/').get(
-    isLoggedIn,
-    function (req, res) {
-      var view = pug.compileFile(path.resolve('views/poll/list.pug'));
+  // poll routes
 
-      res.send(view());
-    });
+  app.route('/').get(isLoggedIn, container.PollList());
+
+  app.route('/polls/new').get(isLoggedIn, container.PollForm());
+
+  // api routes
 
   app.route('/api/users/usernames')
     .post(container.CheckUsername());
@@ -55,5 +55,14 @@ module.exports = function (app, passport) {
 
   app.route('/api/users/passwords')
     .post(container.CheckPassword());
+
+  app.route('/api/polls/names')
+    .post(isLoggedIn, container.CheckPollName());
+
+  app.route('/api/polls/options')
+    .post(isLoggedIn, container.CheckPollOption());
+
+  app.route('/api/polls')
+    .post(isLoggedIn, container.CreatePoll());
 
 };

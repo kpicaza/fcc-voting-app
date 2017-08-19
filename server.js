@@ -13,8 +13,11 @@ var app = express();
 require('dotenv').load();
 require('./config/passport')(passport);
 
+app.set('view engine', 'pug');
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use('/js/user', express.static(path.join(__dirname, "src/user/infrastructure/client")));
+app.use('/js/poll', express.static(path.join(__dirname, "src/poll/infrastructure/client")));
 app.use('/js/common', express.static(path.join(__dirname, "src/util")));
 
 
@@ -24,7 +27,7 @@ app.use(require('cookie-parser')());
 app.use(session({
 	secret: 'secretClementine',
   saveUninitialized: true,
-	resave: false
+	resave: true
 }));
 app.use(flash());
 app.use(passport.initialize());

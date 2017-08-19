@@ -1,0 +1,16 @@
+div(class="form-content hidden")
+
+    form(id="add-poll-form" action="/api/polls", method="POST")
+        div(class="form-group")
+            input(type="text", class="form-control form-control-lg", name="name", id="poll-name" placeholder="Poll name" required)
+            small(class="error form-control-feedback hidden") Invalid poll name given.
+
+        div(id="poll-options")
+            div(class="form-group")
+                input(type="text", class="form-control form-control-lg poll-option", name="options[]", placeholder="Add an option" required)
+                small(class="error form-control-feedback hidden") Invalid option given.
+
+        button(id="submit-poll-button" disabled type="submit" class="btn btn-success btn-lg btn-block") Create poll
+        button(id="cancel-poll-button" class="btn btn-danger btn-lg btn-block") Cancel
+
+        script(type="text/javascript" src="js/poll/create-poll.client.js")

@@ -1,8 +1,8 @@
 'use strict';
 
 var LocalStrategy = require('passport-local').Strategy;
-var userRepository = require('../routes/container').UserRepository();
-var emitter = require('../routes/container').EventEmitter();
+var userRepository = require('./container').UserRepository();
+var emitter = require('./container').EventEmitter();
 
 module.exports = function (passport) {
 
@@ -26,34 +26,36 @@ module.exports = function (passport) {
     });
   };
 
-	passport.serializeUser(function (user, done) {
-		done(null, user.id());
-	});
+  passport.serializeUser(function (user, done) {
+    done(null, user.username());
+  });
 
-	passport.deserializeUser(function (id, done) {
-    userRepository.byId(id).then(function (user) {
-			done(null, user);
+  passport.deserializeUser(function (username, done) {
+    userRepository.byUsername(username).then(function (user) {
+      done(null, user);
     });
-	});
+  });
 
   passport.use(new LocalStrategy(
-    function(username, password, done) {
+    function (username, password, done) {
 
-      userRepository.byUsername(username).then(function (user) {
+      userRepository.byUsername(username)
+        .then(function (user) {
 
-        return user.verifyPassword(password).then(function (res) {
-          if (!res) {
-            emitLoginFailedEvent();
-            return done(null, false);
-          }
+          return user.verifyPassword(password).then(function (res) {
+            if (!res) {
+              emitLoginFailedEvent();
+              return done(null, false);
+            }
 
-          emitUserLoggedInEvent(user);
-          done(null, user);
+            emitUserLoggedInEvent(user);
+            done(null, user);
+          });
+        })
+        .catch(function (e) {
+          emitLoginFailedEvent();
+          done(null, false);
         });
-      }).catch(function(e) {
-        emitLoginFailedEvent();
-        done(null, false);
-			});
     }
   ));
 

@@ -6,7 +6,7 @@ var bcrypt = require('bcrypt');
 var User = function (id, username, email, password) {
 
   var constructor = function (userId, name, mail, pass) {
-    id = !userId ? uuid5('') : userId;
+    id = !userId ? uuid5(Date.now().toString()) : userId;
     assertValidUsername(name);
     assertValidEmail(mail);
   };
