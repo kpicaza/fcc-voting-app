@@ -10,7 +10,7 @@
   var showForm = function (data) {
     var formContent = wrapper.find('.form-content');
 
-    addButton.slideUp('slow');
+    addButton.hide();
     formContent.replaceWith(data);
     wrapper.find('.form-content').slideDown('slow');
   };

@@ -44,7 +44,7 @@
     var formContent = wrapper.find('.form-content');
 
     formContent.slideUp('slow');
-    addButton.slideDown('slow');
+    addButton.show();
   };
 
   cancelButton.bind('click', function (e) {
