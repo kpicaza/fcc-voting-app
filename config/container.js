@@ -9,10 +9,12 @@ var CheckEmail = require('../src/user/application/action/check-email');
 var CheckPassword = require('../src/user/application/action/check-password');
 var CreateAnUser = require('../src/user/application/action/create-user-action');
 var PollForm = require('../src/poll/application/action/poll-form');
+var PollDetail = require('../src/poll/application/action/poll-detail');
 var PollList = require('../src/poll/application/action/poll-list');
 var CheckPollName = require('../src/poll/application/action/check-name');
 var CheckPollOption = require('../src/poll/application/action/check-option');
 var CreatePoll = require('../src/poll/application/action/create-poll');
+var VotePoll = require('../src/poll/application/action/vote-poll');
 var RegisterValidator = require('../src/user/application/middleware/register-validator');
 var UserRepository = require('../src/user/domain/model/repository');
 var PollRepository = require('../src/poll/domain/model/repository');
@@ -99,6 +101,12 @@ var container = {
     return pollList.action;
   },
 
+  PollDetail: function () {
+    var pollDetail = new PollDetail(this.PollRepository());
+
+    return pollDetail.action;
+  },
+
   PollForm: function () {
     var pollForm = new PollForm();
 
@@ -121,6 +129,12 @@ var container = {
     var createPoll= new CreatePoll(this.PollRepository());
 
     return createPoll.action;
+  },
+
+  VotePoll: function () {
+    var votePoll = new VotePoll(this.PollRepository());
+
+    return votePoll.action;
   }
 
 };

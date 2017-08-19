@@ -34,9 +34,8 @@ function Poll(id, userId, name, options, voters) {
   };
 
   this.votesNumber = function () {
-    return 0;
     return options.reduce(function (a, b) {
-      return a.votesNumber + b.votesNumber;
+      return a.votes() + b.votes();
     });
   };
 
@@ -44,12 +43,13 @@ function Poll(id, userId, name, options, voters) {
     return voters;
   };
 
-  this.vote = function (option, userId) {
+  this.vote = function (i, userId) {
     if (userId) {
       addVoter(userId);
     }
 
-    option.addVote();
+    options[i].addVote();
+    console.log(options[i]);
   };
 
 }

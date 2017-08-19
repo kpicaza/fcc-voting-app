@@ -1,0 +1,18 @@
+extends ../logged-in-layout
+
+block content
+    div(class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 card")
+
+        div(class="card-block")
+            h2
+                i(class="fa fa-archive")
+                span(class="margin-left-10") #{poll.name()}
+            hr
+
+            each option, key in poll.options()
+                button(class="btn btn-lg btn-block btn-primary vote-option", data-poll-id=poll.id(), data-value=key)
+                    i(class="fa fa-envelope-open")
+                    span(class="margin-left-10") Vote #{option.name()}
+
+block append scripts
+    script(type="text/javascript" src="/js/poll/vote-option.client.js")

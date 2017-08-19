@@ -45,6 +45,8 @@ module.exports = function (app, passport) {
 
   app.route('/polls/new').get(isLoggedIn, container.PollForm());
 
+  app.route('/polls/:id').get(isLoggedIn, container.PollDetail());
+
   // api routes
 
   app.route('/api/users/usernames')
@@ -64,5 +66,8 @@ module.exports = function (app, passport) {
 
   app.route('/api/polls')
     .post(isLoggedIn, container.CreatePoll());
+
+  app.route('/api/polls/:id/options')
+    .post(isLoggedIn, container.VotePoll());
 
 };

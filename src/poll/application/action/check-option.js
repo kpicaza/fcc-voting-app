@@ -5,13 +5,15 @@ function CheckOption() {
   this.action = function (req, res) {
     
     if (Array.isArray(req.body.options)) {
-      req.body.options.pop();
+      req.body.options =  req.body.options.filter(function(item, pos, self) {
+        return self.indexOf(item) === pos;
+      });
     } else {
       req.body.options = [];
     }
 
     req.checkBody('option', 'Invalid poll option given.').notEmpty().isLength({
-      min: 3,
+      min: 2,
       max: 20
     });
 

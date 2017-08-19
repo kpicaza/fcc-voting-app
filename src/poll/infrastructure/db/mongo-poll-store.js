@@ -77,10 +77,24 @@ function Store(db) {
   this.insert = function (poll, a, b) {
     return new Promise(function (resolve, reject) {
 
-      console.log('toInsert', poll);
       var aPoll = serializePoll(poll);
 
       collection.insert(aPoll, function (err, data) {
+        if (err) {
+          reject(err);
+        }
+
+        resolve(vm.find({pollId: poll.id()}, 1, 0));
+      });
+    });
+  };
+
+  this.update = function (poll, a, b) {
+    return new Promise(function (resolve, reject) {
+
+      var aPoll = serializePoll(poll);
+
+      collection.update({pollId: poll.id()}, aPoll, function (err, data) {
         if (err) {
           reject(err);
         }

@@ -8,13 +8,16 @@ var Option = require('./option');
 function Repository(store, emitter) {
 
   const LIMIT = 20;
+  var vm = this;
 
   var factory = function (userId, data) {
+    var id = data.id || data.pollId;
+
     var options = data.options.map(function (option) {
-      return new Option(option, 0);
+      return new Option(option.name, option.votesNumber);
     });
 
-    return new Poll(data.id, userId, data.name, options, data.voters);
+    return new Poll(id, userId, data.name, options, data.voters);
   };
 
   this.paged = function (page) {
@@ -34,6 +37,18 @@ function Repository(store, emitter) {
     });
   };
 
+  this.byId = function (id) {
+
+    return new Promise(function (resolve, reject) {
+      store({pollId: id}, 'find', 1, 0).then(function (polls) {
+        resolve(factory(polls[0].userId, polls[0]));
+      }).catch(function (e) {
+        reject(e);
+      });
+
+    });
+  };
+
   this.add = function (userId, poll) {
 
     return store(factory(userId, poll), 'insert').then(function (aPoll) {
@@ -43,6 +58,28 @@ function Repository(store, emitter) {
         data: new PollWasCreated(aPoll),
         occurredOn: new Date()
       });
+    });
+  };
+
+  this.vote = function (id, index, userId) {
+
+    console.log(id);
+
+    return vm.byId(id).then(function (aPoll) {
+
+      aPoll.vote(index, userId);
+
+      return store(aPoll, 'update').then(function () {
+
+        emitter.emit('PollWasVoted', {
+          name: 'PollWasVoted',
+          data: new PollWasCreated(aPoll),
+          occurredOn: new Date()
+        });
+
+        return aPoll;
+      });
+
     });
   };
 
