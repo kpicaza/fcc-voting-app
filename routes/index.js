@@ -70,6 +70,7 @@ module.exports = function (app, passport) {
     .post(isLoggedIn, container.CreatePoll());
 
   app.route('/api/polls/:id/options')
+    .get(isLoggedIn, container.PollOptions())
     .post(isLoggedIn, container.VotePoll());
 
 };

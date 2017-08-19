@@ -1,13 +1,13 @@
 'use strict';
 
-function VotePoll(repository, colors) {
+function PollOptions(repository, colors) {
 
   this.action = function (req, res) {
 
-    repository.vote(req.params.id, req.body.option, req.user.id()).then(function (poll) {
+    repository.byId(req.params.id).then(function (poll) {
       var options = poll.options();
 
-      res.status(202).json({
+      res.status(200).json({
         colors: colors(options.length),
         options: options.map(function (option) {
           return {
@@ -25,4 +25,4 @@ function VotePoll(repository, colors) {
 
 }
 
-module.exports = VotePoll;
+module.exports = PollOptions;

@@ -1,6 +1,7 @@
 'use strict';
 
 var EventEmitter = require('events');
+var colors = require('../src/common/colors');
 var Login = require('../src/user/application/action/login-action');
 var LoginForm = require('../src/user/application/action/login-form-action');
 var RegisterForm = require('../src/user/application/action/register-form-action');
@@ -11,6 +12,7 @@ var CreateAnUser = require('../src/user/application/action/create-user-action');
 var PollForm = require('../src/poll/application/action/poll-form');
 var PollDetail = require('../src/poll/application/action/poll-detail');
 var PollList = require('../src/poll/application/action/poll-list');
+var PollOptions = require('../src/poll/application/action/poll-options');
 var MyPollList = require('../src/poll/application/action/my-poll-list');
 var CheckPollName = require('../src/poll/application/action/check-name');
 var CheckPollOption = require('../src/poll/application/action/check-option');
@@ -102,6 +104,12 @@ var container = {
     return pollList.action;
   },
 
+  PollOptions: function () {
+    var pollOptions = new PollOptions(this.PollRepository(), colors);
+
+    return pollOptions.action;
+  },
+
   MyPollList: function () {
     var myPollList = new MyPollList(this.PollRepository());
 
@@ -139,7 +147,7 @@ var container = {
   },
 
   VotePoll: function () {
-    var votePoll = new VotePoll(this.PollRepository());
+    var votePoll = new VotePoll(this.PollRepository(), colors);
 
     return votePoll.action;
   }

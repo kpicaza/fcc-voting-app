@@ -19,6 +19,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use('/jquery', express.static(path.join(__dirname, "node_modules/jquery/dist")));
 app.use('/bootstrap', express.static(path.join(__dirname, "node_modules/bootstrap/dist")));
 app.use('/tether', express.static(path.join(__dirname, "node_modules/tether/dist")));
+app.use('/chartjs', express.static(path.join(__dirname, "node_modules/chart.js/dist")));
 app.use('/font-awesome/css', express.static(path.join(__dirname, "node_modules/font-awesome/css")));
 app.use('/font-awesome/fonts', express.static(path.join(__dirname, "node_modules/font-awesome/fonts")));
 app.use('/js/user', express.static(path.join(__dirname, "src/user/infrastructure/client")));
