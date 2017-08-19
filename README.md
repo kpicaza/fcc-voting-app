@@ -1,6 +1,9 @@
 Free Code Camp Voting App
 =========================
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kpicaza/fcc-voting-app/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kpicaza/fcc-voting-app/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/kpicaza/fcc-voting-app/badges/build.png?b=master)](https://scrutinizer-ci.com/g/kpicaza/fcc-voting-app/build-status/master)
+
 ## User Stories:
 
 * **User Story:** As an authenticated user, I can keep my polls and come back later to access them.
