@@ -38,6 +38,11 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(function(req,res,next){
+  res.locals.user = req.user;
+  next();
+});
+
 routes(app, passport);
 
 var port = process.env.PORT || 8080;

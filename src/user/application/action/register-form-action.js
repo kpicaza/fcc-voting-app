@@ -5,7 +5,7 @@ function RegisterForm() {
 
     req.getValidationResult().then(function(result) {
       if (true === result.isEmpty()) {
-        res.send(view());
+        res.render('user/register', {});
         return;
       }
 

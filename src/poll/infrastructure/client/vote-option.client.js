@@ -18,8 +18,6 @@
     var pollId = button.data('poll-id');
     var value = button.data('value');
 
-    console.log(button, pollId, value);
-
     ajaxFunctions.ajaxRequest('POST', apiUrl + '/' + pollId + '/options', {
       option: value
     }, function (data, status, xhr) {
