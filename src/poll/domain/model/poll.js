@@ -35,6 +35,11 @@ function Poll(id, userId, name, options, voters) {
 
   this.votesNumber = function () {
     return options.reduce(function (a, b) {
+
+      if ('function' !== typeof a.votes) {
+        return a + b.votes();
+      }
+
       return a.votes() + b.votes();
     });
   };
@@ -49,7 +54,6 @@ function Poll(id, userId, name, options, voters) {
     }
 
     options[i].addVote();
-    console.log(options[i]);
   };
 
 }

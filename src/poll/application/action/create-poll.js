@@ -4,8 +4,6 @@ function CreatePoll(repository) {
 
   this.action = function (req, res) {
 
-    console.log(req.body);
-
     req.body.options.pop();
     req.body.options = req.body.options.map(function (option) {
       return {
@@ -15,10 +13,9 @@ function CreatePoll(repository) {
     });
 
     repository.add(req.user.id(), req.body).then(function (poll) {
-      console.log(poll);
       res.status(201).send({});
     }).catch(function (e) {
-      console.log(e);
+      console.error(e);
       res.status(400).send({});
     });
 

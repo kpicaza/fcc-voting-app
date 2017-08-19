@@ -43,6 +43,8 @@ module.exports = function (app, passport) {
 
   app.route('/').get(isLoggedIn, container.PollList());
 
+  app.route('/polls/me').get(isLoggedIn, container.MyPollList());
+
   app.route('/polls/new').get(isLoggedIn, container.PollForm());
 
   app.route('/polls/:id').get(isLoggedIn, container.PollDetail());

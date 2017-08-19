@@ -20,16 +20,24 @@ function Repository(store, emitter) {
     return new Poll(id, userId, data.name, options, data.voters);
   };
 
-  this.paged = function (page) {
+  var getOffset = function (page) {
     page = page || 1;
 
-    var offset = (page - 1) * LIMIT;
+    return (page - 1) * LIMIT;
+  };
+
+  var mapPolls = function (polls, resolve) {
+    resolve(polls.map(function (poll) {
+      return factory(poll.userId, poll);
+    }));
+  };
+
+  this.paged = function (page) {
+    var offset = getOffset(page);
 
     return new Promise(function (resolve, reject) {
       store({}, 'find', LIMIT, offset).then(function (polls) {
-        resolve(polls.map(function (poll) {
-          return factory(poll.userId, poll);
-        }));
+        mapPolls(polls, resolve);
       }).catch(function (e) {
         reject(e);
       });
@@ -49,10 +57,24 @@ function Repository(store, emitter) {
     });
   };
 
+  this.byUserId = function (userId, page) {
+    var offset = getOffset(page);
+
+    return new Promise(function (resolve, reject) {
+      store({
+        userId: userId
+      }, 'find', LIMIT, offset).then(function (polls) {
+        mapPolls(polls, resolve);
+      }).catch(function (e) {
+        reject(e);
+      });
+
+    });
+  };
+
   this.add = function (userId, poll) {
 
     return store(factory(userId, poll), 'insert').then(function (aPoll) {
-      console.log(userId, aPoll, poll);
       emitter.emit('PollWasCreated', {
         name: 'PollWasCreated',
         data: new PollWasCreated(aPoll),
@@ -62,8 +84,6 @@ function Repository(store, emitter) {
   };
 
   this.vote = function (id, index, userId) {
-
-    console.log(id);
 
     return vm.byId(id).then(function (aPoll) {
 

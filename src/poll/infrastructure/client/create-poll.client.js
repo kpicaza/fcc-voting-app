@@ -80,7 +80,7 @@
 
   var reloadView = function () {
 
-    ajaxFunctions.ajaxRequest('GET', appUrl, {},
+    ajaxFunctions.ajaxRequest('GET', document.location.href, {},
       function (data, status, xhr) {
         pollList.find('#poll-list-group').replaceWith($(data).find('#poll-list-group'));
       },

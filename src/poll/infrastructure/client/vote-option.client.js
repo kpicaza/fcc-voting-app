@@ -5,9 +5,16 @@
   var apiUrl = appUrl + '/api/polls';
 
   var optionButton = $('.vote-option');
+  var running = false;
 
   optionButton.bind('click', function (e) {
     e.preventDefault();
+
+    if (running) {
+      return;
+    }
+
+    running = true;
 
     var button = $(e.target);
 
@@ -21,7 +28,7 @@
     ajaxFunctions.ajaxRequest('POST', apiUrl + '/' + pollId + '/options', {
       option: value
     }, function (data, status, xhr) {
-      console.log(data);
+      running = false;
     }, function (err, status, xhr) {
       console.error(err);
     });

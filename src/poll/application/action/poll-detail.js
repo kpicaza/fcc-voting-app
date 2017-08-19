@@ -6,10 +6,6 @@ function PollDetail(repository) {
 
     repository.byId(req.params.id).then(function (poll) {
 
-      poll.options().map(function (option) {
-        console.log(option.name());
-      });
-
       res.render('poll/detail', {
         poll: poll
       });

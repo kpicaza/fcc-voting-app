@@ -11,6 +11,7 @@ var CreateAnUser = require('../src/user/application/action/create-user-action');
 var PollForm = require('../src/poll/application/action/poll-form');
 var PollDetail = require('../src/poll/application/action/poll-detail');
 var PollList = require('../src/poll/application/action/poll-list');
+var MyPollList = require('../src/poll/application/action/my-poll-list');
 var CheckPollName = require('../src/poll/application/action/check-name');
 var CheckPollOption = require('../src/poll/application/action/check-option');
 var CreatePoll = require('../src/poll/application/action/create-poll');
@@ -99,6 +100,12 @@ var container = {
     var pollList = new PollList(this.PollRepository());
 
     return pollList.action;
+  },
+
+  MyPollList: function () {
+    var myPollList = new MyPollList(this.PollRepository());
+
+    return myPollList.action;
   },
 
   PollDetail: function () {

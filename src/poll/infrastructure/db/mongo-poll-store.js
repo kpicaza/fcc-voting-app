@@ -32,7 +32,6 @@ function Store(db) {
   };
 
   var serializePoll = function (poll) {
-    console.log('options', poll.options());
 
     var options = poll.options().map(function (option) {
       return {
@@ -40,7 +39,6 @@ function Store(db) {
         votesNumber: option.votes()
       };
     });
-    console.log(poll, options);
 
     return {
       pollId: poll.id(),

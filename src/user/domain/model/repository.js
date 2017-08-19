@@ -9,7 +9,7 @@ var saltRounds = 10;
 function Repository(store, emitter) {
 
   var factory = function (data) {
-    var id = data.id || null;
+    var id = data.id || data.userId || null;
     return new User(id, data.username, data.email, data.password);
   };
 
