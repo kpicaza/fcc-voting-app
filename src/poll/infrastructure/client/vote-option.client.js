@@ -41,15 +41,6 @@
 
   };
 
-  // ajaxFunctions.ready(function () {
-  //   ajaxFunctions.ajaxRequest('GET', apiUrl + '/' + pollId + '/options', {},
-  //     function (data, status, xhr) {
-  //       drawChart(data);
-  //     }, function (err, status, xhr) {
-  //       console.error(err);
-  //     });
-  // });
-
   optionButton.bind('click', function (e) {
     e.preventDefault();
 
