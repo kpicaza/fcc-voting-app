@@ -2,6 +2,7 @@
 
 /** global: appUrl */
 /** global: ajaxFunctions */
+/** global: Chart */
 
 (function () {
 

@@ -96,16 +96,16 @@
   nameInput.bind('keyup', debounce(function () {
     ajaxFunctions.ajaxRequest('POST', apiUrl + '/names', {
       name: nameInput.val()
-    }, function (data, status, xhr) {
+    }, function () {
       hideError(nameInput);
-    }, function (err, status, xhr) {
+    }, function () {
       showError(nameInput);
     });
   }, 250));
 
   optionInput.bind('keyup', debounce(checkOption, 250));
 
-  optionsWrapper.bind('OptionFilled', function (e) {
+  optionsWrapper.bind('OptionFilled', function () {
     var control = false;
     var options = $('.poll-option');
 
@@ -138,7 +138,7 @@
     formItem.bind('keyup', debounce(checkOption, 250));
   });
 
-  submitButton.bind('InputFilled', function (e) {
+  submitButton.bind('InputFilled', function () {
     if (1 < optionsNumber) {
       submitButton.prop('disabled', false);
       return;
@@ -162,11 +162,11 @@
     });
 
     ajaxFunctions.ajaxRequest('POST', apiUrl, formData,
-      function (data, status, xhr) {
+      function () {
         closeForm();
         reloadView();
       },
-      function (err, status, xhr) {
+      function (err) {
         console.error(err);
       });
 

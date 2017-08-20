@@ -74,12 +74,12 @@ function Store(db) {
     });
   };
 
-  this.insert = function (poll, a, b) {
+  this.insert = function (poll) {
     return new Promise(function (resolve, reject) {
 
       var aPoll = serializePoll(poll);
 
-      collection.insert(aPoll, function (err, data) {
+      collection.insert(aPoll, function (err) {
         if (err) {
           reject(err);
         }
@@ -89,12 +89,12 @@ function Store(db) {
     });
   };
 
-  this.update = function (poll, a, b) {
+  this.update = function (poll) {
     return new Promise(function (resolve, reject) {
 
       var aPoll = serializePoll(poll);
 
-      collection.update({pollId: poll.id()}, aPoll, function (err, data) {
+      collection.update({pollId: poll.id()}, aPoll, function (err) {
         if (err) {
           reject(err);
         }
