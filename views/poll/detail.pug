@@ -20,9 +20,11 @@ block content
 
             div(id="poll-options")
                 each option, key in poll.options()
-                    button(class="btn btn-lg btn-block btn-primary vote-option", data-poll-id=poll.id(), data-value=key)
-                        i(class="fa fa-envelope-open")
-                        span(class="margin-left-10") Vote #{option.name()}
+                    label(class="input-group clickable")
+                        span(class="input-group-addon")
+                            input(class="vote-option" type="radio" name="vote-option" data-poll-id=poll.id() value=key)
+
+                        p(class="lead form-control form-control-lg")= option.name()
 
 block append scripts
     script(type="text/javascript" src="/chartjs/Chart.bundle.min.js")

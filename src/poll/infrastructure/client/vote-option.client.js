@@ -51,13 +51,13 @@
 
     e.preventDefault();
 
-    var button = $(e.target);
+    var input = $(e.target);
 
-    if (!button[0].hasAttribute('data-value')) {
-      button = button.closest('button');
+    if (!input[0].hasAttribute('data-poll-id')) {
+      input = input.closest('.input-group').find('input');
     }
 
-    var value = button.data('value');
+    var value = input.val();
 
     ajaxFunctions.ajaxRequest('POST', apiUrl + '/' + pollId + '/options', {
       option: value

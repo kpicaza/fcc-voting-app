@@ -5,6 +5,7 @@ html, body {
 
 #wrap {
 	min-height: 100%;
+	margin-bottom: 20px;
 }
 
 #main {
@@ -16,7 +17,7 @@ html, body {
 	margin-top: 15px;
 }
 
-.btn {
+.btn, .clickable {
 	cursor: pointer;
 }
 
