@@ -4,7 +4,9 @@ function VotePoll(repository, colors) {
 
   this.action = function (req, res) {
 
-    repository.vote(req.params.id, req.body.option, req.user.id()).then(function (poll) {
+    var userId = req.user ? req.user.id() : null;
+
+    repository.vote(req.params.id, req.body.option, userId).then(function (poll) {
       var options = poll.options();
 
       res.status(202).json({

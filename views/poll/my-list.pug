@@ -1,5 +1,12 @@
 extends ../layout
 
+block breadcrumb
+    div(class="col-md-10 offset-md-1 col-lg-8 offset-lg-2")
+        ol(class="breadcrumb")
+            li(class="breadcrumb-item")
+                a(href="/") Home
+            li(class="breadcrumb-item active") My polls
+
 block content
     div(class="col-md-10 offset-md-1 col-lg-8 offset-lg-2 card")
 

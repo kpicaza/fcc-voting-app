@@ -41,13 +41,13 @@ module.exports = function (app, passport) {
 
   // poll routes
 
-  app.route('/').get(isLoggedIn, container.PollList());
+  app.route('/').get(container.PollList());
 
   app.route('/polls/me').get(isLoggedIn, container.MyPollList());
 
   app.route('/polls/new').get(isLoggedIn, container.PollForm());
 
-  app.route('/polls/:id').get(isLoggedIn, container.PollDetail());
+  app.route('/polls/:id').get(container.PollDetail());
 
   // api routes
 
@@ -70,7 +70,7 @@ module.exports = function (app, passport) {
     .post(isLoggedIn, container.CreatePoll());
 
   app.route('/api/polls/:id/options')
-    .get(isLoggedIn, container.PollOptions())
-    .post(isLoggedIn, container.VotePoll());
+    .get(container.PollOptions())
+    .post(container.VotePoll());
 
 };

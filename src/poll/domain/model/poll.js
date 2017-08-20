@@ -2,10 +2,11 @@
 
 var uuid5 = require('uuid5');
 
-function Poll(id, userId, name, options, voters) {
+function Poll(id, userId, name, options, voters, date) {
 
   options = options || [];
   voters = voters || [];
+  date = date ? new Date(date) : new Date();
 
   var constructor = function (pollId) {
     id = !pollId ? uuid5(Date.now().toString()) : pollId;
@@ -55,6 +56,10 @@ function Poll(id, userId, name, options, voters) {
 
     options[i].addVote();
   };
+
+  this.createdAt = function () {
+    return date.toISOString();
+  }
 
 }
 

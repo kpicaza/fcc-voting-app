@@ -25,30 +25,27 @@
     optionsDiv.fadeOut('fast', function () {
       return new Chart(ctx, {
         type: 'pie',
-
         data: {
           labels: labels,
           datasets: [{
-            label: "My First dataset" ,
             backgroundColor: data.colors,
             data: values
           }]
         },
-
         options: {}
       });
     });
 
+    running = false;
+
   };
 
   optionButton.bind('click', function (e) {
-    e.preventDefault();
-
-    if (running) {
-      return;
-    }
+    if (running) { return; }
 
     running = true;
+
+    e.preventDefault();
 
     var button = $(e.target);
 
@@ -60,10 +57,9 @@
 
     ajaxFunctions.ajaxRequest('POST', apiUrl + '/' + pollId + '/options', {
       option: value
-    }, function (data, status, xhr) {
+    }, function (data) {
       drawChart(data);
-      running = false;
-    }, function (err, status, xhr) {
+    }, function (err) {
       console.error(err);
     });
 

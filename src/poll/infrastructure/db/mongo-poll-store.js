@@ -45,7 +45,8 @@ function Store(db) {
       userId: poll.userId(),
       name: poll.name(),
       options: options,
-      voters: poll.voters()
+      voters: poll.voters(),
+      createdAt: poll.createdAt()
     }
   };
 
@@ -60,6 +61,7 @@ function Store(db) {
         .find(criteria)
         .skip(offset)
         .limit(limit)
+        .sort({createdAt: -1})
         .toArray(function (err, documents) {
           if (err) {
             reject(err);

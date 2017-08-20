@@ -17,7 +17,7 @@ function Repository(store, emitter) {
       return new Option(option.name, option.votesNumber);
     });
 
-    return new Poll(id, userId, data.name, options, data.voters);
+    return new Poll(id, userId, data.name, options, data.voters, data.createdAt);
   };
 
   var getOffset = function (page) {
