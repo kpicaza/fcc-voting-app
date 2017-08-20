@@ -10,11 +10,15 @@ function Repository(store, emitter) {
   const LIMIT = 20;
   var vm = this;
 
+  var optionFactory = function (option) {
+    return new Option(option.name, option.votesNumber);
+  };
+
   var factory = function (userId, data) {
     var id = data.id || data.pollId;
 
     var options = data.options.map(function (option) {
-      return new Option(option.name, option.votesNumber);
+      return optionFactory(option);
     });
 
     return new Poll(id, userId, data.name, options, data.voters, data.createdAt);
@@ -93,6 +97,29 @@ function Repository(store, emitter) {
 
         emitter.emit('PollWasVoted', {
           name: 'PollWasVoted',
+          data: new PollWasCreated(aPoll),
+          occurredOn: new Date()
+        });
+
+        return aPoll;
+      });
+
+    });
+  };
+
+  this.addOption = function (id, optionName, userId) {
+
+    return vm.byId(id).then(function (aPoll) {
+
+      aPoll.addOption(optionFactory({
+        name: optionName,
+        votesNumber: 0
+      }));
+
+      return store(aPoll, 'update').then(function () {
+
+        emitter.emit('PollOptionWasAdded', {
+          name: 'PollOptionWasAdded',
           data: new PollWasCreated(aPoll),
           occurredOn: new Date()
         });

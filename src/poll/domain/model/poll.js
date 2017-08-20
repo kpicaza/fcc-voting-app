@@ -30,6 +30,10 @@ function Poll(id, userId, name, options, voters, date) {
     return name;
   };
 
+  this.addOption = function(option) {
+    options.push(option);
+  };
+
   this.options = function () {
     return options;
   };

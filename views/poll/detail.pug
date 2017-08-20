@@ -19,15 +19,25 @@ block content
             include ./chart
 
             div(id="poll-options")
-                each option, key in poll.options()
-                    label(class="input-group clickable")
-                        span(class="input-group-addon")
-                            input(class="vote-option" type="radio" name="vote-option" data-poll-id=poll.id() value=key)
+                div(id="poll-options-list")
+                    each option, key in poll.options()
+                        label(class="input-group clickable")
+                            span(class="input-group-addon")
+                                input(class="vote-option" type="radio" name="vote-option" data-poll-id=poll.id() value=key)
 
-                        p(class="lead form-control form-control-lg")= option.name()
+                            p(class="lead form-control form-control-lg")= option.name()
+
 
                 if user
-                    button(class="btn btn-warning btn-lg btn-block")
+                    div(id="add-option-form-wrapper" class="hidden")
+                        div(class="form-group")
+                            input(id="add-option" name="add-option" type="text", class="form-control form-control-lg")
+
+                        button(id="add-option-button" class="btn btn-success btn-lg btn-block" disabled)
+                            i(class="fa fa-floppy")
+                            span(class="lead margin-left-10") Save
+
+                    button(id="show-add-option-form" class="btn btn-warning btn-lg btn-block")
                         i(class="fa fa-plus")
                         span(class="lead margin-left-10") Add option
 
@@ -39,3 +49,5 @@ block content
 block append scripts
     script(type="text/javascript" src="/chartjs/Chart.bundle.min.js")
     script(type="text/javascript" src="/js/poll/vote-option.client.js")
+    if user
+        script(type="text/javascript" src="/js/poll/create-poll-option.client.js")

@@ -71,6 +71,7 @@ module.exports = function (app, passport) {
 
   app.route('/api/polls/:id/options')
     .get(container.PollOptions())
-    .post(container.VotePoll());
+    .post(container.VotePoll())
+    .put(container.CreatePollOption());
 
 };

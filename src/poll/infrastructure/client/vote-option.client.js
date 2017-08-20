@@ -44,29 +44,43 @@
 
   };
 
-  optionButton.bind('click', function (e) {
-    if (running) { return; }
+  var bindOptions = function() {
+    optionButton.bind('click', function (e) {
+      if (running) { return; }
 
-    running = true;
+      running = true;
 
-    e.preventDefault();
+      e.preventDefault();
 
-    var input = $(e.target);
+      var input = $(e.target);
 
-    if (!input[0].hasAttribute('data-poll-id')) {
-      input = input.closest('.input-group').find('input');
-    }
+      if (!input[0].hasAttribute('data-poll-id')) {
+        input = input.closest('.input-group').find('input');
+      }
 
-    var value = input.val();
+      var value = input.val();
 
-    ajaxFunctions.ajaxRequest('POST', apiUrl + '/' + pollId + '/options', {
-      option: value
-    }, function (data) {
-      drawChart(data);
-    }, function (err) {
-      console.error(err);
+      ajaxFunctions.ajaxRequest('POST', apiUrl + '/' + pollId + '/options', {
+        option: value
+      }, function (data) {
+        drawChart(data);
+      }, function (err) {
+        console.error(err);
+      });
+
     });
+  };
 
+  ajaxFunctions.ready(function () {
+    bindOptions();
+  });
+
+  chartDiv.bind('OptionWadAdded', function () {
+    optionButton = $('.vote-option');
+    chartDiv = $('#poll-chart');
+    optionsDiv = $('#poll-options');
+    pollId = chartDiv.data('poll-id');
+    bindOptions();
   });
 
 })();
