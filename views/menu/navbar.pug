@@ -14,4 +14,9 @@ nav(class="navbar navbar-inverse navbar-toggleable-md navbar-light bg-faded bg-d
                     a(class="nav-link" href="/polls/me") My Polls
             ul(class="navbar-nav mr-right")
                 li(class="nav-item")
+                    img(src="https://www.gravatar.com/avatar/" + user.hashedEmail + "?s=40")
+                li(class="nav-item")
+                    a(class="nav-link" href="#")
+                        | #{user.username()}
+                li(class="nav-item")
                     a(class="nav-link" href="/logout") Log out

@@ -8,6 +8,7 @@ var expressValidator = require('express-validator');
 var session = require('express-session');
 var flash = require('express-flash');
 var path = require('path');
+var requestUser = require('./src/user/application/middleware/request-user');
 
 var app = express();
 require('dotenv').load();
@@ -17,6 +18,7 @@ app.set('view engine', 'pug');
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use('/jquery', express.static(path.join(__dirname, "node_modules/jquery/dist")));
+app.use('/md5', express.static(path.join(__dirname, "node_modules/blueimp-md5/js")));
 app.use('/bootstrap', express.static(path.join(__dirname, "node_modules/bootstrap/dist")));
 app.use('/tether', express.static(path.join(__dirname, "node_modules/tether/dist")));
 app.use('/chartjs', express.static(path.join(__dirname, "node_modules/chart.js/dist")));
@@ -38,11 +40,7 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use(function(req,res,next){
-  res.locals.user = req.user;
-  next();
-});
+app.use(requestUser);
 
 routes(app, passport);
 

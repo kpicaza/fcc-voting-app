@@ -26,6 +26,16 @@ block content
 
                         p(class="lead form-control form-control-lg")= option.name()
 
+                if user
+                    button(class="btn btn-warning btn-lg btn-block")
+                        i(class="fa fa-plus")
+                        span(class="lead margin-left-10") Add option
+
+                    if user.id() === poll.userId()
+                        button(class="btn btn-danger btn-lg btn-block")
+                            i(class="fa fa-trash")
+                            span(class="lead margin-left-10") Delete poll
+
 block append scripts
     script(type="text/javascript" src="/chartjs/Chart.bundle.min.js")
     script(type="text/javascript" src="/js/poll/vote-option.client.js")
