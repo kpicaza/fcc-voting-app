@@ -1,5 +1,8 @@
 'use strict';
 
+/** global: appUrl */
+/** global: ajaxFunctions */
+
 (function () {
 
   var apiUrl = appUrl + '/api/polls';

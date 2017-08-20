@@ -1,5 +1,8 @@
 'use strict';
 
+/** global: appUrl */
+/** global: ajaxFunctions */
+
 (function () {
 
   var apiUrl = appUrl + '/polls/new';
@@ -19,9 +22,9 @@
     e.preventDefault();
 
     ajaxFunctions.ajaxRequest('GET', apiUrl, {},
-      function (data, status, xhr) {
+      function (data) {
         showForm(data);
-      }, function (err, status, xhr) {
+      }, function (err) {
         console.error(err);
       });
 

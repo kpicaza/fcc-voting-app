@@ -1,5 +1,8 @@
 'use strict';
 
+/** global: appUrl */
+/** global: ajaxFunctions */
+
 (function () {
 
   var apiUrl = appUrl + '/api/polls';
@@ -70,10 +73,10 @@
     ajaxFunctions.ajaxRequest('POST', apiUrl + '/options', {
       option: option.val(),
       options: options
-    }, function (data, status, xhr) {
+    }, function () {
       hideError(option);
       optionsWrapper.trigger('OptionFilled');
-    }, function (err, status, xhr) {
+    }, function () {
       showError(option);
     });
   };
@@ -81,10 +84,10 @@
   var reloadView = function () {
 
     ajaxFunctions.ajaxRequest('GET', document.location.href, {},
-      function (data, status, xhr) {
+      function (data) {
         pollList.find('#poll-list-group').replaceWith($(data).find('#poll-list-group'));
       },
-      function (err, status, xhr) {
+      function (err) {
         console.error(err);
       });
 

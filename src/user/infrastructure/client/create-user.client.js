@@ -1,5 +1,8 @@
 'use strict';
 
+/** global: appUrl */
+/** global: ajaxFunctions */
+
 (function () {
 
   var apiUrl = appUrl + '/api/users/';
@@ -43,9 +46,9 @@
     ajaxFunctions.ajaxRequest('POST', apiUrl + 'passwords', {
       password: passwordInput.val(),
       verify: passwordRepeatInput.val()
-    }, function (data, status, xhr) {
+    }, function () {
       hideError(input);
-    }, function (err, status, xhr) {
+    }, function () {
       showError(input);
     });
   };
@@ -53,9 +56,9 @@
   usernameInput.bind('keyup', debounce(function () {
     ajaxFunctions.ajaxRequest('POST', apiUrl + 'usernames', {
       username: usernameInput.val()
-    }, function (data, status, xhr) {
+    }, function () {
       hideError(usernameInput);
-    }, function (err, status, xhr) {
+    }, function () {
       showError(usernameInput);
     });
 
@@ -64,9 +67,9 @@
   emailInput.bind('keyup', debounce(function () {
     ajaxFunctions.ajaxRequest('POST', apiUrl + 'emails', {
       email: emailInput.val()
-    }, function (data, status, xhr) {
+    }, function () {
       hideError(emailInput);
-    }, function (err, status, xhr) {
+    }, function () {
       showError(emailInput);
     });
   }, 250));
@@ -79,7 +82,7 @@
     checkPassword(passwordRepeatInput);
   }, 250));
 
-  submitButton.bind('InputFilled', function (e) {
+  submitButton.bind('InputFilled', function () {
 
     var hasErrors = true;
 
