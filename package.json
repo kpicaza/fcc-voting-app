@@ -39,6 +39,7 @@
     "express-session": "^1.15.5",
     "express-validator": "^3.2.1",
     "font-awesome": "^4.7.0",
+    "jquery": "^3.2.1",
     "mongoose": "^4.1.0",
     "passport": "^0.3.0",
     "passport-github": "^1.0.0",
