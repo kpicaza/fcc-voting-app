@@ -62,8 +62,16 @@
   });
 
   optionInput.bind('keyup', debounce(function () {
+    var options = [];
+    var inputs = optionDiv.find('input');
+
+    inputs.each(function (i) {
+      options.push($(inputs[i]).data('value'));
+    });
+
     ajaxFunctions.ajaxRequest('POST', apiUrl + '/options', {
-      option: optionInput.val()
+      option: optionInput.val(),
+      options: options
     }, function () {
       hideError(optionInput);
     }, function () {

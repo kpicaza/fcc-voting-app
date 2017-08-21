@@ -23,7 +23,7 @@ block content
                     each option, key in poll.options()
                         label(class="input-group clickable")
                             span(class="input-group-addon")
-                                input(class="vote-option" type="radio" name="vote-option" data-poll-id=poll.id() value=key)
+                                input(class="vote-option" type="radio" name="vote-option" data-poll-id=poll.id() value=key data-value=option.name())
 
                             p(class="lead form-control form-control-lg")= option.name()
 

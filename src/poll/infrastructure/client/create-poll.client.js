@@ -65,9 +65,12 @@
     optionInput.each(function (i) {
       var input = $(optionInput[i]);
 
-      if (input.closest('.form-group').hasClass('has-success')) {
-        options.push($(optionInput[i]).val())
+      if (option[0] === input[0]) {
+        showError(option);
+        return;
       }
+
+      options.push(input.val())
     });
 
     ajaxFunctions.ajaxRequest('POST', apiUrl + '/options', {
