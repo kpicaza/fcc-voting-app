@@ -87,11 +87,11 @@ function Repository(store, emitter) {
     });
   };
 
-  this.vote = function (id, index, userId) {
+  this.vote = function (id, index, userId, ip) {
 
     return vm.byId(id).then(function (aPoll) {
 
-      aPoll.vote(index, userId);
+      aPoll.vote(index, userId, ip);
 
       return store(aPoll, 'update').then(function () {
 
@@ -132,7 +132,13 @@ function Repository(store, emitter) {
 
   this.delete = function (id) {
 
-    return store(id, 'delete');
+    return store(id, 'delete').then(function () {
+      emitter.emit('PollWasDeleted', {
+        name: 'PollWasDeleted',
+        data: {pollId: id},
+        occurredOn: new Date()
+      });
+    });
 
   };
 

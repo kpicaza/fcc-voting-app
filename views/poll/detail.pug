@@ -16,37 +16,20 @@ block content
                 span(class="margin-left-10") #{poll.name()}
             hr
 
-            include ./chart
+            if user
+                ul(class="nav nav-tabs" role="tablist")
+                    li(class="nav-item")
+                        a(class="nav-link active lead" href="#primary-tab" role="tab" data-toggle="tab") Poll
+                    li(class="nav-item")
+                        a(class="nav-link lead" href="#aggregate-tab" role="tab" data-toggle="tab") Data
 
-            div(id="poll-options")
-                div(id="poll-options-list")
-                    each option, key in poll.options()
-                        label(class="input-group clickable")
-                            span(class="input-group-addon")
-                                input(class="vote-option" type="radio" name="vote-option" data-poll-id=poll.id() value=key data-value=option.name())
-
-                            p(class="lead form-control form-control-lg")= option.name()
-
+            div(class="tab-content")
+                div( role="tabpanel" class="tab-pane fade" id="primary-tab")
+                    include ./detail-primary
 
                 if user
-                    div(id="add-option-form-wrapper" class="hidden")
-                        div(class="form-group")
-                            input(id="add-option" name="add-option" type="text", class="form-control form-control-lg")
-
-                        button(id="add-option-button" class="btn btn-success btn-lg btn-block" disabled)
-                            i(class="fa fa-floppy")
-                            span(class="lead margin-left-10") Save
-
-                    button(id="show-add-option-form" class="btn btn-warning btn-lg btn-block")
-                        i(class="fa fa-plus")
-                        span(class="lead margin-left-10") Add option
-
-                    if user.id() === poll.userId()
-                        include ./delete-form
-
-                a(href="https://twitter.com/intent/tweet?text=Vote " + poll.name() + " " + siteUrl, target="_blank" class="btn btn-info btn-lg btn-block")
-                    i(class="fa fa-twitter")
-                    span(class="lead margin-left-10") Share poll
+                    div(role="tabpanel" class="tab-pane fade" id="aggregate-tab")
+                        include ./detail-aggregate
 
 block append scripts
     script(type="text/javascript" src="/chartjs/Chart.bundle.min.js")

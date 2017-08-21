@@ -1,12 +1,15 @@
 'use strict';
 
+var ipParser = require('../../../common/ip-parser');
+
 function VotePoll(repository, colors) {
 
   this.action = function (req, res) {
 
     var userId = req.user ? req.user.id() : null;
+    var ip = ipParser(req.headers['x-forwarded-for']);
 
-    repository.vote(req.params.id, req.body.option, userId).then(function (poll) {
+    repository.vote(req.params.id, req.body.option, userId, ip).then(function (poll) {
       var options = poll.options();
 
       res.status(202).json({

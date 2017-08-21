@@ -19,6 +19,7 @@ var CheckPollOption = require('../src/poll/application/action/check-option');
 var CreatePoll = require('../src/poll/application/action/create-poll');
 var CreatePollOption = require('../src/poll/application/action/create-poll-option');
 var DeletePoll = require('../src/poll/application/action/delete-poll');
+var CanVote = require('../src/poll/application/action/can-vote');
 var VotePoll = require('../src/poll/application/action/vote-poll');
 var RegisterValidator = require('../src/user/application/middleware/register-validator');
 var UserRepository = require('../src/user/domain/model/repository');
@@ -128,6 +129,12 @@ var container = {
     var pollForm = new PollForm();
 
     return pollForm.action;
+  },
+
+  CanVote: function () {
+    var canVote = new CanVote(this.PollRepository());
+
+    return canVote.action;
   },
 
   CheckPollName: function () {

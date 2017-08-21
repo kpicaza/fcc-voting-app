@@ -108,7 +108,6 @@ function Store(db) {
     return new Promise(function (resolve, reject) {
 
       collection.remove({pollId: id}, function (err) {
-        console.log(id);
         if (err) {
           reject(err);
         }

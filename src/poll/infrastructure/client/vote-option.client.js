@@ -44,9 +44,11 @@
 
   };
 
-  var bindOptions = function() {
+  var bindOptions = function () {
     optionButton.bind('click', function (e) {
-      if (running) { return; }
+      if (running) {
+        return;
+      }
 
       running = true;
 
@@ -73,6 +75,16 @@
 
   ajaxFunctions.ready(function () {
     bindOptions();
+    $('#primary-tab').tab('show');
+
+    ajaxFunctions.ajaxRequest('GET', apiUrl + '/' + pollId + '/voters', {},
+      function (data) {
+        if (data.hasOwnProperty('canVote')) {
+          return;
+        }
+
+        drawChart(data);
+      }, function () {});
   });
 
   chartDiv.bind('OptionWadAdded', function () {

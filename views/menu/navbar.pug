@@ -1,7 +1,7 @@
 nav(class="navbar navbar-inverse navbar-toggleable-md navbar-light bg-faded bg-danger")
+    button(class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
+        span(class="navbar-toggler-icon")
     div(class="container")
-        button(class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation")
-            span(class="navbar-toggler-icon")
         a(class="navbar-brand" href="/")
             i(class="fa fa-th-large")= ' '
             strong(id="title-text" class="margin-left-10") Fcc Voting App
@@ -13,7 +13,7 @@ nav(class="navbar navbar-inverse navbar-toggleable-md navbar-light bg-faded bg-d
                 li(class="nav-item")
                     a(class="nav-link" href="/polls/me") My Polls
             ul(class="navbar-nav mr-right")
-                li(class="nav-item")
+                li(class="nav-item hidden-md-down")
                     img(src="https://www.gravatar.com/avatar/" + user.hashedEmail + "?s=40")
                 li(class="nav-item")
                     a(class="nav-link" href="#")

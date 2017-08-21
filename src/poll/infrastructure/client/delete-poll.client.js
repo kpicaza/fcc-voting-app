@@ -25,7 +25,6 @@
     e.preventDefault();
 
     deleteModal.modal('show');
-    console.log('delete poll');
   });
 
   confirmDeleteButton.bind('click', function (e) {

@@ -3,6 +3,11 @@ html, body {
 	height: 100%;
 }
 
+.navbar-toggler-right {
+	float: right !important;
+	clear: both;
+}
+
 #wrap {
 	min-height: 100%;
 	margin-bottom: 20px;

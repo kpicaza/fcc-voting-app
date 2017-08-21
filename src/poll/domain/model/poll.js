@@ -4,6 +4,7 @@ var uuid5 = require('uuid5');
 
 function Poll(id, userId, name, options, voters, date) {
 
+  var vm = this;
   options = options || [];
   voters = voters || [];
   date = date ? new Date(date) : new Date();
@@ -53,9 +54,21 @@ function Poll(id, userId, name, options, voters, date) {
     return voters;
   };
 
-  this.vote = function (i, userId) {
+  this.assertCanVote = function (userId, ip, callback) {
+    if (-1 < voters.indexOf(userId) || -1 < voters.indexOf(ip)) {
+      callback();
+    }
+  };
+
+  this.vote = function (i, userId, ip) {
+    this.assertCanVote(userId, ip, function () {
+      throw 'You cannot vote twice same poll.';
+    });
+
     if (userId) {
       addVoter(userId);
+    } else {
+      addVoter(ip);
     }
 
     options[i].addVote();
