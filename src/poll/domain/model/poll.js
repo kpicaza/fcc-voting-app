@@ -55,7 +55,7 @@ function Poll(id, userId, name, options, voters, date) {
   };
 
   this.assertCanVote = function (userId, ip, callback) {
-    if (-1 < voters.indexOf(userId) || -1 < voters.indexOf(ip)) {
+    if (-1 < voters.indexOf(userId) || !userId && -1 < voters.indexOf(ip)) {
       callback();
     }
   };

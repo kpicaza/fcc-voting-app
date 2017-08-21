@@ -10,6 +10,7 @@
 
   var optionButton = $('.vote-option');
   var chartDiv = $('#poll-chart');
+  var dataDiv = $('.poll-data');
   var optionsDiv = $('#poll-options');
   var pollId = chartDiv.data('poll-id');
   var running = false;
@@ -20,9 +21,11 @@
     var labels = [];
     var values = [];
 
+    var valueCells = dataDiv.find('.votes-cell p');
     for (var i in data.options) {
       labels.push(data.options[i].name);
       values.push(data.options[i].votes);
+      $(valueCells[i]).text(values[data.options[i].votes]);
     }
 
     chartDiv.empty();

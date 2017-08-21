@@ -10,27 +10,3 @@ div(id="poll-options")
 
                 p(class="lead form-control form-control-lg")= option.name()
 
-
-    if user
-        div(id="add-option-form-wrapper" class="hidden")
-            div(class="form-group")
-                input(id="add-option" name="add-option" type="text", class="form-control form-control-lg")
-
-            button(id="add-option-button" class="btn btn-success btn-lg btn-block" disabled)
-                i(class="fa fa-floppy")
-                span(class="lead margin-left-10") Save
-
-        button(id="show-add-option-form" class="btn btn-warning btn-lg btn-block")
-            i(class="fa fa-plus")
-            span(class="lead margin-left-10") Add option
-
-        if user.id() === poll.userId()
-            button(id="delete-poll-button", class="btn btn-danger btn-lg btn-block", data-poll-id=poll.id())
-                i(class="fa fa-trash")
-                span(class="lead margin-left-10") Delete poll
-
-        a(href="https://twitter.com/intent/tweet?text=Vote " + poll.name() + " " + siteUrl, target="_blank" class="btn btn-info btn-lg btn-block")
-            i(class="fa fa-twitter")
-            span(class="lead margin-left-10") Share poll
-
-include ./delete-form

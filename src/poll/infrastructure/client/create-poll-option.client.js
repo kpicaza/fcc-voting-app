@@ -9,11 +9,13 @@
 
   var chartDiv = $('#poll-chart');
   var optionDiv = $('#poll-options-list');
+  var dataDiv = $('.poll-data');
   var pollId = chartDiv.data('poll-id');
   var optionForm = $('#add-option-form-wrapper');
   var optionInput = $('#add-option');
   var submitButton = $('#add-option-button');
   var showFormButton = $('#show-add-option-form');
+  var closeButton = $('#close-option-button');
 
   var showError = function (input) {
 
@@ -43,6 +45,8 @@
     ajaxFunctions.ajaxRequest('GET', appUrl + '/polls/' + pollId, {},
       function (data) {
         optionDiv.replaceWith($(data).find('#poll-options-list'));
+        dataDiv.replaceWith($(data).find('.poll-data'));
+
         optionForm.hide();
         optionInput.val('');
         showFormButton.slideDown('fast');
@@ -58,6 +62,14 @@
 
     showFormButton.fadeOut('fast', function () {
       optionForm.slideDown('slow');
+    });
+  });
+
+  closeButton.bind('click', function (e) {
+    e.preventDefault();
+
+    optionForm.fadeOut('fast', function () {
+      showFormButton.show();
     });
   });
 
