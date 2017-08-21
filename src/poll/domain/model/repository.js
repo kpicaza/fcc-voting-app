@@ -130,6 +130,12 @@ function Repository(store, emitter) {
     });
   };
 
+  this.delete = function (id) {
+
+    return store(id, 'delete');
+
+  };
+
 }
 
 module.exports = Repository;

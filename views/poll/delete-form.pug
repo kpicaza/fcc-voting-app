@@ -1,0 +1,19 @@
+button(id="delete-poll-button", class="btn btn-danger btn-lg btn-block", data-poll-id=poll.id())
+    i(class="fa fa-trash")
+    span(class="lead margin-left-10") Delete poll
+
+
+div(id="delete-poll-modal" class="modal fade")
+    div(class="modal-dialog" role="document")
+        div(class="modal-content")
+            div(class="modal-header")
+                h5(class="modal-title") Delete #{poll.name()}
+                button(type="button" class="close" data-dismiss="modal" aria-label="Close")
+                i(class="fa fa-close" aria-hidden="true")
+            div(class="modal-body")
+                p Modal body text goes here.
+
+            div(class="modal-footer")
+                button(type="button" class="btn btn-warning btn-lg" data-dismiss="modal") Mmmm, Maibe later
+                button(id="confirm-delete" type="button" class="btn btn-danger btn-lg") I'm sure, delete
+

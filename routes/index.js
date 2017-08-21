@@ -69,6 +69,9 @@ module.exports = function (app, passport) {
   app.route('/api/polls')
     .post(isLoggedIn, container.CreatePoll());
 
+  app.route('/api/polls/:id')
+    .delete(container.DeletePoll());
+
   app.route('/api/polls/:id/options')
     .get(container.PollOptions())
     .post(container.VotePoll())
