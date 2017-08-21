@@ -44,6 +44,10 @@ block content
                     if user.id() === poll.userId()
                         include ./delete-form
 
+                a(href="https://twitter.com/intent/tweet?text=Vote " + poll.name() + " " + siteUrl, target="_blank" class="btn btn-info btn-lg btn-block")
+                    i(class="fa fa-twitter")
+                    span(class="lead margin-left-10") Share poll
+
 block append scripts
     script(type="text/javascript" src="/chartjs/Chart.bundle.min.js")
     script(type="text/javascript" src="/js/poll/vote-option.client.js")

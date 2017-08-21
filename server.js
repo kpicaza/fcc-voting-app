@@ -9,6 +9,7 @@ var session = require('express-session');
 var flash = require('express-flash');
 var path = require('path');
 var requestUser = require('./src/user/application/middleware/request-user');
+var viewGlobals = require('./config/view-globals');
 
 var app = express();
 require('dotenv').load();
@@ -40,6 +41,7 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(viewGlobals);
 app.use(requestUser);
 
 routes(app, passport);
