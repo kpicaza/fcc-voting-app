@@ -25,7 +25,7 @@
     for (var i in data.options) {
       labels.push(data.options[i].name);
       values.push(data.options[i].votes);
-      $(valueCells[i]).text(values[data.options[i].votes]);
+      $(valueCells[i]).text(values[i]);
     }
 
     chartDiv.empty();
